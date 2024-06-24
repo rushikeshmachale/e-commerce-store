@@ -25,10 +25,10 @@ const Cart = () => {
       .delete(`${process.env.REACT_APP_BACKEND_API}/carts/delete/${id}`)
       .then(() => {
         loadData();
-        toast.success("book deleted successfully!!");
+        toast.success("product deleted successfully!!");
       })
       .catch(() => {
-        toast.error("book not deleted !");
+        toast.error("product not deleted !");
       });
   };
 
@@ -40,8 +40,8 @@ const Cart = () => {
         bookid: cart.bookid,
         img: cart.img,
         bookname: cart.bookname,
+        catagory: cart.catagory,
         price: cart.price,
-        author: cart.author,
         status: "pending",
       });
       navigate("/orders");
@@ -61,10 +61,10 @@ const Cart = () => {
             <tr>
               <th></th>
               <th>
-                <sup>Bookname</sup>
+                <sup>Product</sup>
               </th>
               <th>
-                <sup>Author</sup>
+                <sup>Catagory</sup>
               </th>
               <th>
                 <sup>Price</sup>
@@ -90,7 +90,7 @@ const Cart = () => {
                     />
                   </td>
                   <td>{x.bookname}</td>
-                  <td>{x.author}</td>
+                  <td>{x.catagory}</td>
                   <td>
                     <b> ₹ </b>
                     {x.price} /.
@@ -103,13 +103,14 @@ const Cart = () => {
                       🗑
                     </button>
                     {/**
-                  <button
+                      <button
                       className="btn btn-warning mx-1"
                       onClick={handleSubmit}
-                    >
+                      >
                       💲
-                    </button>
-                  */}
+                      </button>
+                      */}
+                  
                   </td>
                 </tr>
               ))

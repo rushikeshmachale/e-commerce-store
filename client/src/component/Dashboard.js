@@ -57,6 +57,7 @@ const Dashboard = () => {
     }
   };
 
+  const maxLength = 20;
   const [isExpanded, setIsExpanded] = useState({});
   const toggleReadMore = (index) => {
     setIsExpanded((prevState) => ({
@@ -67,7 +68,18 @@ const Dashboard = () => {
 
   const [sort, setSort] = useState("🔽");
 
-  const maxLength = 20;
+
+
+  const [selectedCatagory,setSelectedCatagory]=useState("all")
+  const searchData=(catagory)=>{
+
+    setSelectedCatagory(catagory)
+    if(catagory==="all"){
+      setTemp(books);
+    }else{
+      setTemp(books.filter(book=>book.catagory.toLowerCase()===catagory))
+    }
+  }
   return (
     <div className="container-fluid">
       <Navbar />
@@ -76,22 +88,30 @@ const Dashboard = () => {
         className=" row d-flex justify-content-center"
       >
         <ToastContainer />
-        <div className="container d-flex justify-content-center">
-          <div
-            style={{ width: "150px" }}
-            className="form-control  mx-1"
-            onClick={handleSort}
-          >
-            Sort Price {sort}
-          </div>
+        <div className="container justify-content-center">
           <input
             type="text"
-            className="form-control w-75 m-auto mx-1"
+            autoComplete="off"
+            className="form-control w-75 m-auto "
             name="name"
             id=""
             onChange={filterData}
             placeholder="🔍 Search product here..."
           />
+          <div className="my-2 d-flex w-75 m-auto">
+            <div className="form-control w-25 m-1" onClick={handleSort}>
+              Sort Price {sort}
+            </div>
+            <div className="d-flex flex-wrap border justify-content-between w-75 border-1 rounded-2 align-items-center">
+              <div className="btn m-1 flex-fill text-center" onClick={()=>searchData("all")}> all </div><div className="btn m-1 flex-fill text-center" onClick={()=>searchData("electronics")}> electronics </div>
+              <div className="btn m-1 flex-fill text-center" onClick={()=>searchData("fashion")}> fashion </div>
+              <div className="btn m-1 flex-fill text-center" onClick={()=>searchData("footwear")}> footwear </div>
+              <div className="btn m-1 flex-fill text-center" onClick={()=>searchData("home")}>
+                {" "}
+                home{" "}
+              </div>
+            </div>
+          </div>
         </div>
         {temp.map((x, index) => {
           const needsTruncation = x.reviews.length > maxLength;
@@ -119,20 +139,22 @@ const Dashboard = () => {
                     objectPosition: "center top",
                   }}
                 />
-                <div className="card-body p-3" style={{fontSize:"12px" ,wordSpacing:"inherit"}}>
+                <div
+                  className="card-body p-3"
+                  style={{ fontSize: "12px", wordSpacing: "inherit" }}
+                >
                   <p className="text-success card-title">{x.bookname}</p>
 
+                  <p className="">{x.ratings} </p>
+                  <p className="">{x.catagory} </p>
 
-                  <p className="fs-6">{x.ratings} </p>
-                  <p className="fs-6">{x.catagory} </p>
-
-                  <p>₹{x.price}.0</p>
+                  <p className="fs-6">₹{x.price}.0</p>
 
                   <div className="w-75">
                     <p className="text-wrap">
                       {displayedReview}
                       {needsTruncation && (
-                        <button 
+                        <button
                           onClick={() => toggleReadMore(index)}
                           className="btn p-0"
                         >

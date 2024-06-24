@@ -29,7 +29,7 @@ const UpdateBook = () => {
     const res = await axios.get(`${process.env.REACT_APP_BACKEND_API}/books/get/${id}`);
     setBookData(res.data);
   };
-  const { bookname, author, price, ratings, reviews } = bookData;
+  const { bookname, catagory, price, ratings, reviews } = bookData;
 
   const handleChange = (e) => {
     setBookData({ ...bookData, [e.target.name]: e.target.value });
@@ -75,7 +75,7 @@ const UpdateBook = () => {
       <div style={{ marginTop: "100px" }}></div>
       <ToastContainer />
       <form action="" className="form-control my-5">
-        <h4 className=" text-center">Update book</h4>
+        <h4 className=" text-center">Update Product</h4>
         <div className="form-row my-3 d-flex flex-wrap justify-content-center">
           <div className="form-group col-md-5 mx-4 my-2">
             <input
@@ -84,17 +84,17 @@ const UpdateBook = () => {
               name="bookname"
               value={bookname}
               onChange={handleChange}
-              placeholder="Enter bookname"
+              placeholder="Enter product name"
             />
           </div>
           <div className="form-group col-md-5 mx-4  my-2">
             <input
               type="text"
               className="form-control "
-              name="author"
-              value={author}
+              name="catagory"
+              value={catagory}
               onChange={handleChange}
-              placeholder="Enter author name"
+              placeholder="Enter catagory name"
             />
           </div>
 

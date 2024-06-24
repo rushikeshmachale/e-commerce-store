@@ -3,14 +3,14 @@ import Cart from "../models/cart.js";
 
 export const addToCart = async (req, res) => {
   //   const { id } = req.params;
-  const { customerid, bookid, img, bookname, author, price } = req.body;
+  const { customerid, bookid, img, bookname, catagory, price } = req.body;
 
   const cart = await new Cart({
     customerid,
     bookid,
     bookname,
     img,
-    author,
+    catagory,
     price,
   });
 

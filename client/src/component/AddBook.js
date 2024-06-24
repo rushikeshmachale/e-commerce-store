@@ -64,13 +64,15 @@ const AddBook = () => {
       <div style={{ marginTop: "100px" }}></div>
       <ToastContainer />
       <form action="" className="form-control my-5">
-        <h4 className=" text-center">Add new book</h4>
+        <h4 className=" text-center">Add new product</h4>
         <div class="form-row my-3 d-flex flex-wrap justify-content-center">
           <div class="form-group col-md-5 mx-4 my-2">
             <input
               type="text"
               className="form-control "
               name="bookname"
+              
+            autoComplete="off"
               value={bookname}
               onChange={handleChange}
               placeholder="Enter Product name"
@@ -91,6 +93,8 @@ const AddBook = () => {
               type="text"
               className="form-control "
               name="ratings"
+              
+            autoComplete="off"
               value={ratings}
               onChange={handleChange}
               placeholder="Enter ratings"
@@ -102,6 +106,8 @@ const AddBook = () => {
               type="text"
               className="form-control "
               name="reviews"
+              
+            autoComplete="off"
               value={reviews}
               onChange={handleChange}
               placeholder="Enter description"
@@ -112,6 +118,8 @@ const AddBook = () => {
               type="text"
               className="form-control "
               name="catagory"
+              
+            autoComplete="off"
               value={catagory}
               onChange={handleChange}
               placeholder="Enter catagory"
@@ -122,6 +130,8 @@ const AddBook = () => {
               type="text"
               className="form-control "
               name="price"
+              
+            autoComplete="off"
               value={price}
               onChange={handleChange}
               placeholder="Enter price"

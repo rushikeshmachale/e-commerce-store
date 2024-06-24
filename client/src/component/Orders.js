@@ -35,9 +35,9 @@ const Orders = () => {
         <thead className="bg-primary text-white">
           <tr>
             <th></th>
-            {role === 'admin' ? <th>OrderId</th>:<th></th>}
-            <th>Bookname</th>
-            <th>Author</th>
+            {role === 'admin' ? <th>Update</th>:<th></th>}
+            <th>Product</th>
+            <th>Catagory</th>
             <th>Price</th>
             <th>Status</th>
             <th>Time</th>
@@ -56,15 +56,15 @@ const Orders = () => {
                       to={`/order/update/${x._id}`}
                       className="text-decoration-none"
                     >
-                      {x._id}
+                      Edit
                     </Link>
                   ) : (
                     <div></div>
                   )}
                 </td>
                 <td>{x.bookname}</td>
-                <td>{x.author}</td>
-                <td><b>₹</b> {x.price} /.</td>
+                <td>{x.catagory}</td>
+                <td><b>₹</b> {x.price}/-</td>
                 <td>{x.status}</td>
                 <td>
                   <sup>

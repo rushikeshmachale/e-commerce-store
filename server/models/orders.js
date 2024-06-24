@@ -21,7 +21,7 @@ const orderShema = new mongoose.Schema({
         type:String,
         required:true
     },
-    author:{
+    catagory:{
         type:String,
         required:true
     },

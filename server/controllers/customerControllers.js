@@ -18,13 +18,13 @@ export const sendMail = async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL,
       to: email,
-      subject: "Welcome to eBookstore ",
-      text: `You tried to log in on our portal. Here is the OTP to continue ${otp}. It will be valid for the next ten minutes. Please do not share OTP with anyone.
-
-      Thank you,
-      eBookstore
-      
-      If you did not make this request, you can safely ignore this email.`,
+      subject: "Welcome to E-commercestore ",
+      html: `
+      <p>You tried to log in on our portal. Here is the OTP to continue: <b>${otp}</b>. It will be valid for the next ten minutes. Please do not share OTP with anyone.</p>
+      <p><img src="https://res.cloudinary.com/dz2lisia4/image/upload/v1719213281/images/eanvz38kie1ihgdvp1q8.jpg" alt="E-commercestore" /></p>
+      <p>Thank you,<br/>E-commercestore</p>
+      <p>If you did not make this request, you can safely ignore this email.</p>
+    `,
     };
 
     await transporter.sendMail(mailOptions).then(() => {

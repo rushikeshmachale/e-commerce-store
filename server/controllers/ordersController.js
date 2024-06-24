@@ -1,14 +1,14 @@
 import Orders from "../models/orders.js";
 
 export const addOrder = async (req, res) => {
-  const { customerid, bookid, bookname, img, author, price,status } = req.body;
+  const { customerid, bookid, bookname, img, catagory, price,status } = req.body;
 
   const order = await new Orders({
     customerid,
     bookid,
     bookname,
     img,
-    author,
+    catagory,
     price,
     status
   });
@@ -55,9 +55,9 @@ export const getOrderByOrderid = async(req,res)=>{
 
 export const updateOrderByOrderid = async(req,res)=>{
     const {id} = req.params
-    const { customerid, bookid, bookname, img, author, price,status } = req.body;
+    const { customerid, bookid, bookname, img, catagory, price,status } = req.body;
     if (id) {
-        await Orders.findByIdAndUpdate(id, { customerid, bookid, bookname, img, author, price,status } );
+        await Orders.findByIdAndUpdate(id, { customerid, bookid, bookname, img, catagory, price,status } );
         return res.status(201).json("order updated");
       } else {
         return res.status(401).json("order not found");
