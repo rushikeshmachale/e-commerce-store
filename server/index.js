@@ -2,7 +2,7 @@ import express  from "express";
 import  mongoose  from "mongoose";
 import dotenv from 'dotenv'
 import crouter from "./routes/customerRoutes.js";
-import bookrouter from "./routes/booksRoutes.js";
+import productrouter from "./routes/productRoutes.js";
 import cors from 'cors' 
 import cartrouter from "./routes/cartRoutes.js";
 import orouter from "./routes/ordersRoutes.js";
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/customers',crouter)
-app.use('/books',bookrouter)
+app.use('/products',productrouter)
 app.use('/carts',cartrouter)
 app.use('/orders',orouter)
 

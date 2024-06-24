@@ -1,14 +1,14 @@
-import { json } from "express";
+
 import Cart from "../models/cart.js";
 
 export const addToCart = async (req, res) => {
   //   const { id } = req.params;
-  const { customerid, bookid, img, bookname, catagory, price } = req.body;
+  const { customerid, productid, img, productname, catagory, price } = req.body;
 
   const cart = await new Cart({
     customerid,
-    bookid,
-    bookname,
+    productid,
+    productname,
     img,
     catagory,
     price,
@@ -27,18 +27,18 @@ export const addToCart = async (req, res) => {
 
 export const getallcartelements = async (req, res) => {
   try {
-    const books = await Cart.find();
-    return res.status(200).json(books);
+    const products = await Cart.find();
+    return res.status(200).json(products);
   } catch (error) {
     return res.status(404).json(error);
   }
 };
 
 
-export const findbybookname=async(req,res)=>{
-  const productNameToFind = req.params.bookname;
+export const findbyproductname=async(req,res)=>{
+  const productNameToFind = req.params.productname;
 
-  const products = await Cart.find({ bookname: { $regex: new RegExp(productNameToFind, 'i') } });
+  const products = await Cart.find({ productname: { $regex: new RegExp(productNameToFind, 'i') } });
 
     if (products.length > 0) {
       res.status(200).json(products);

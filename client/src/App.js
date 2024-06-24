@@ -5,13 +5,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from "./component/Dashboard";
 import Signin from "./component/Signin";
 import Signup from "./component/Signup";
-import AddBook from "./component/AddBook";
+import AddProduct from "./component/AddProduct";
 import View from "./component/View";
 import Cart from "./component/Cart";
 import Orders from "./component/Orders";
 import Info from "./component/Info";
 import OrderUpdate from "./component/OrderUpdate";
-import UpdateBook from "./component/UpdateBook";
+import UpdateProduct from "./component/UpdateProduct";
 import UpdateCustomer from "./component/UpdateCustomer";
 
 function App() {
@@ -21,9 +21,9 @@ function App() {
         <Route path="/" element={<Signin />} />
         <Route path="/home" element={<Dashboard />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/addbook" element={<AddBook />} />
+        <Route path="/addproduct" element={<AddProduct />} />
         <Route path="/view/:id" element={<View />} />
-        <Route path="/edit/:id" element={<UpdateBook />} />
+        <Route path="/edit/:id" element={<UpdateProduct />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/profile" element={<Info />} />

@@ -5,11 +5,11 @@ const orderShema = new mongoose.Schema({
         type:String,
         required:true
     },
-    bookid:{
+    productid:{
         type:String,
         required:true
     },
-    bookname:{
+    productname:{
         type:String,
         required:true
     },

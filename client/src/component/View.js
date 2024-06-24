@@ -9,7 +9,7 @@ const View = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const customerid = localStorage.getItem("customerid");
-  const [bookData, setBookData] = useState({});
+  const [productData, setproductData] = useState({});
   const role = localStorage.getItem("role")
   useEffect(() => {
     loadData();
@@ -17,10 +17,10 @@ const View = () => {
 
   const loadData = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_BACKEND_API}/books/get/${id}`);
-      setBookData(res.data);
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_API}/products/get/${id}`);
+      setproductData(res.data);
     } catch (error) {
-      console.error("Error fetching book data:", error);
+      console.error("Error fetching product data:", error);
     }
   };
 
@@ -29,11 +29,11 @@ const View = () => {
     try {
       await axios.post(`${process.env.REACT_APP_BACKEND_API}/carts/add`, {
         customerid: customerid,
-        bookid: id,
-        img: bookData.img,
-        bookname: bookData.bookname,
-        price: bookData.price,
-        catagory: bookData.catagory,
+        productid: id,
+        img: productData.img,
+        productname: productData.productname,
+        price: productData.price,
+        catagory: productData.catagory,
       });
       navigate("/cart");
     } catch (error) {
@@ -46,11 +46,11 @@ const View = () => {
     try {
       await axios.post(`${process.env.REACT_APP_BACKEND_API}/orders/save`, {
         customerid: customerid,
-        bookid: id,
-        img: bookData.img,
-        bookname: bookData.bookname,
-        price: bookData.price,
-        catagory: bookData.catagory,
+        productid: id,
+        img: productData.img,
+        productname: productData.productname,
+        price: productData.price,
+        catagory: productData.catagory,
         status: 'pending',
       });
       navigate("/orders");
@@ -67,7 +67,7 @@ const View = () => {
       <div className="card shadow my-5">
       <div className="card-body d-flex flex-wrap">
       <img
-      src={bookData.img}
+      src={productData.img}
       className="card m-auto img-fluid"
       style={{ borderTopLeftRadius: '10px', borderTopRightRadius: '10px', maxHeight: '350px', objectFit: 'cover'}}
       alt=""
@@ -77,22 +77,22 @@ const View = () => {
       <div className="card-text col-md-6 col-lg-4 col-xl-7 d-flex flex-column justify-content-between m-auto">
             <div className="text-center">
               <i className="text-secondary text-uppercase fs-2">
-                {bookData.bookname}
+                {productData.productname}
                 </i>
                 </div>
                 <div className="text-center">
                 <b>Ratings:</b>{" "}
-                <span className="text-danger">{bookData.ratings} ratings</span>
+                <span className="text-danger">{productData.ratings} ratings</span>
                 </div>
                 <div className="text-center">
-                <b>Catagory:</b> {bookData.catagory}
+                <b>Catagory:</b> {productData.catagory}
                 </div>
                 <div className="text-center">
-                <b>Price:</b> ₹{bookData.price}
+                <b>Price:</b> ₹{productData.price}
                 </div>
                 <div className="text-center">
                 <b>Reviews:</b>{" "}
-                <p className="text-wrap">{bookData.reviews}</p>
+                <p className="text-wrap">{productData.reviews}</p>
                 </div>
                 </div>
                 </div>

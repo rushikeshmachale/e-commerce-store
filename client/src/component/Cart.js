@@ -37,9 +37,9 @@ const Cart = () => {
     try {
       await axios.post(`${process.env.REACT_APP_BACKEND_API}/orders/save`, {
         customerid: customerid,
-        bookid: cart.bookid,
+        productid: cart.productid,
         img: cart.img,
-        bookname: cart.bookname,
+        productname: cart.productname,
         catagory: cart.catagory,
         price: cart.price,
         status: "pending",
@@ -89,7 +89,7 @@ const Cart = () => {
                       alt="Img not found"
                     />
                   </td>
-                  <td>{x.bookname}</td>
+                  <td>{x.productname}</td>
                   <td>{x.catagory}</td>
                   <td>
                     <b> ₹ </b>

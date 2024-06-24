@@ -48,7 +48,7 @@ const Orders = () => {
             orders.map((x) => (
               <tr key={x._id}>
                 <td>
-                  <img src={x.img} alt={x.bookname} style={{maxHeight:"60px",maxWidth:"100px",minHeight:"60px",minWidth:"100px"}}  className="rounded-2" />
+                  <img src={x.img} alt={x.productname} style={{maxHeight:"60px",maxWidth:"100px",minHeight:"60px",minWidth:"100px"}}  className="rounded-2" />
                 </td>
                 <td>
                   {role === "admin" ? (
@@ -62,7 +62,7 @@ const Orders = () => {
                     <div></div>
                   )}
                 </td>
-                <td>{x.bookname}</td>
+                <td>{x.productname}</td>
                 <td>{x.catagory}</td>
                 <td><b>₹</b> {x.price}/-</td>
                 <td>{x.status}</td>

@@ -8,8 +8,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const Dashboard = () => {
   const role = localStorage.getItem("role");
   const email = localStorage.getItem("user");
-  const [books, setBooks] = useState([]);
+  const [products, setProducts] = useState([]);
   const [temp, setTemp] = useState([]);
+  const [sort, setSort] = useState("🔽");
+  const [isExpanded, setIsExpanded] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
   useEffect(() => {
     loadData();
   }, []);
@@ -17,48 +21,46 @@ const Dashboard = () => {
   const loadData = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_API}/books/find`
+        `${process.env.REACT_APP_BACKEND_API}/products/find`
       );
-      setBooks(response.data);
+      setProducts(response.data);
       setTemp(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  const deleteBook = async (id) => {
+  const deleteProduct = async (id) => {
     try {
       await axios.delete(
-        `${process.env.REACT_APP_BACKEND_API}/books/delete/${id}`
+        `${process.env.REACT_APP_BACKEND_API}/products/delete/${id}`
       );
-      toast.success("Book deleted");
+      toast.success("Product deleted");
       loadData();
     } catch (error) {
-      console.error("Error deleting book:", error);
-      toast.error("Cannot delete book");
+      console.error("Error deleting product:", error);
+      toast.error("Cannot delete product");
     }
   };
 
   const filterData = (e) => {
     setTemp(
-      books.filter((f) => f.bookname.toLowerCase().includes(e.target.value))
+      products.filter((f) => f.productname.toLowerCase().includes(e.target.value.toLowerCase()))
     );
   };
 
-  const handleSort = (e) => {
+  const handleSort = () => {
     if (sort === "🔼") {
-      const sorted = [...books].sort((a, b) => (b.price > a.price ? 1 : -1));
+      const sorted = [...products].sort((a, b) => (b.price > a.price ? 1 : -1));
       setTemp(sorted);
       setSort("🔽");
     } else {
-      const sorted = [...books].sort((a, b) => (b.price > a.price ? -1 : 1));
+      const sorted = [...products].sort((a, b) => (b.price > a.price ? -1 : 1));
       setTemp(sorted);
       setSort("🔼");
     }
   };
 
-  const maxLength = 20;
-  const [isExpanded, setIsExpanded] = useState({});
   const toggleReadMore = (index) => {
     setIsExpanded((prevState) => ({
       ...prevState,
@@ -66,33 +68,30 @@ const Dashboard = () => {
     }));
   };
 
-  const [sort, setSort] = useState("🔽");
-
-
-
-  const [selectedCatagory,setSelectedCatagory]=useState("all")
-  const searchData=(catagory)=>{
-
-    setSelectedCatagory(catagory)
-    if(catagory==="all"){
-      setTemp(books);
-    }else{
-      setTemp(books.filter(book=>book.catagory.toLowerCase()===catagory))
+  const searchData = (category) => {
+    setSelectedCategory(category);
+    if (category === "all") {
+      setTemp(products);
+    } else {
+      setTemp(products.filter(product => product.category.toLowerCase() === category));
     }
-  }
+  };
+
+  const maxLength = 20;
+
   return (
     <div className="container-fluid">
       <Navbar />
       <div
         style={{ marginTop: "70px" }}
-        className=" row d-flex justify-content-center"
+        className="row d-flex justify-content-center"
       >
         <ToastContainer />
         <div className="container justify-content-center">
           <input
             type="text"
             autoComplete="off"
-            className="form-control w-75 m-auto "
+            className="form-control w-75 m-auto"
             name="name"
             id=""
             onChange={filterData}
@@ -103,13 +102,11 @@ const Dashboard = () => {
               Sort Price {sort}
             </div>
             <div className="d-flex flex-wrap border justify-content-between w-75 border-1 rounded-2 align-items-center">
-              <div className="btn m-1 flex-fill text-center" onClick={()=>searchData("all")}> all </div><div className="btn m-1 flex-fill text-center" onClick={()=>searchData("electronics")}> electronics </div>
-              <div className="btn m-1 flex-fill text-center" onClick={()=>searchData("fashion")}> fashion </div>
-              <div className="btn m-1 flex-fill text-center" onClick={()=>searchData("footwear")}> footwear </div>
-              <div className="btn m-1 flex-fill text-center" onClick={()=>searchData("home")}>
-                {" "}
-                home{" "}
-              </div>
+              <div className="btn m-1 flex-fill text-center" onClick={() => searchData("all")}> all </div>
+              <div className="btn m-1 flex-fill text-center" onClick={() => searchData("electronics")}> electronics </div>
+              <div className="btn m-1 flex-fill text-center" onClick={() => searchData("fashion")}> fashion </div>
+              <div className="btn m-1 flex-fill text-center" onClick={() => searchData("footwear")}> footwear </div>
+              <div className="btn m-1 flex-fill text-center" onClick={() => searchData("home")}> home </div>
             </div>
           </div>
         </div>
@@ -123,12 +120,12 @@ const Dashboard = () => {
           return (
             <div
               key={index}
-              className=" card col-md-3 col-lg-2 col-sm-4 col-xl-2 m-2 p-0"
+              className="card col-md-3 col-lg-2 col-sm-4 col-xl-2 m-2 p-0"
             >
               <div className="card-body">
                 <img
                   src={x.img}
-                  alt={x.bookname}
+                  alt={x.productname}
                   className="card-img-top card-text rounded-top img-fluid"
                   style={{
                     borderTopLeftRadius: "10px",
@@ -143,13 +140,10 @@ const Dashboard = () => {
                   className="card-body p-3"
                   style={{ fontSize: "12px", wordSpacing: "inherit" }}
                 >
-                  <p className="text-success card-title">{x.bookname}</p>
-
-                  <p className="">{x.ratings} </p>
-                  <p className="">{x.catagory} </p>
-
+                  <p className="text-success card-title">{x.productname}</p>
+                  <p>{x.ratings}</p>
+                  <p>{x.category}</p>
                   <p className="fs-6">₹{x.price}.0</p>
-
                   <div className="w-75">
                     <p className="text-wrap">
                       {displayedReview}
@@ -164,12 +158,11 @@ const Dashboard = () => {
                     </p>
                   </div>
                 </div>
-
                 <div>
                   {role === "admin" ? (
                     <div className="card-text mx-2 d-flex justify-content-between align-items-center">
                       <button
-                        onClick={() => deleteBook(x._id)}
+                        onClick={() => deleteProduct(x._id)}
                         className="btn btn-danger"
                       >
                         🗑
@@ -187,7 +180,7 @@ const Dashboard = () => {
                   ) : (
                     <div className="card-text mx-2 d-flex justify-content-between align-items-center">
                       <button
-                        onClick={() => toast.success("You liked this book")}
+                        onClick={() => toast.success("You liked this product")}
                         className="btn btn-danger"
                       >
                         ♥

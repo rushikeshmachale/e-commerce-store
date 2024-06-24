@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-const booksSchema = new mongoose.Schema({
-    bookname:{
+const productsSchema = new mongoose.Schema({
+    productname:{
         type:String,
         required:true
     },
@@ -30,8 +30,8 @@ const booksSchema = new mongoose.Schema({
     timestamps:true
 })
 
-const Books = mongoose.model('books',booksSchema)
-export default Books
+const products = mongoose.model('products',productsSchema)
+export default products
 
 
 

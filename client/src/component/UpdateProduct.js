@@ -1,24 +1,38 @@
-import React, { useState } from "react";
-import Navbar from "./Navbar";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import Navbar from "./Navbar";
 
-const AddBook = () => {
+const Updateproduct = () => {
+  const { id } = useParams();
+
+  const api = process.env.REACT_APP_BACKEND_API;
+
+  console.log(api);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [img, setImg] = useState(null);
-  const [bookData, setBookData] = useState({
-    bookname: "",
-    price: "",
-    ratings: "",
-    catagory: "",
-    reviews: "",
-  });
-  const { bookname, price, ratings, catagory, reviews } = bookData;
+  // const [productData, setproductData] = useState({
+  //   productname: "",
+  //   author: "",
+  //   price: "",
+  //   ratings: "",
+  //   reviews: "",
+  // });
+  const [productData, setproductData] = useState({});
+
+  useEffect(() => {
+    loadData();
+  }, []);
+  const loadData = async () => {
+    const res = await axios.get(`${process.env.REACT_APP_BACKEND_API}/products/get/${id}`);
+    setproductData(res.data);
+  };
+  const { productname, catagory, price, ratings, reviews } = productData;
 
   const handleChange = (e) => {
-    setBookData({ ...bookData, [e.target.name]: e.target.value });
+    setproductData({ ...productData, [e.target.name]: e.target.value });
   };
   const uploadImage = async (type) => {
     const data = new FormData();
@@ -43,10 +57,7 @@ const AddBook = () => {
     setLoading(true);
     const imgUrl = await uploadImage("image");
     await axios
-      .post(`${process.env.REACT_APP_BACKEND_API}/books/save`, {
-        ...bookData,
-        img: imgUrl,
-      })
+      .put(`${process.env.REACT_APP_BACKEND_API}/products/edit/${id}`, { ...productData, img: imgUrl })
       .then(() => {
         setImg(null);
         setLoading(false);
@@ -55,7 +66,7 @@ const AddBook = () => {
       .catch(() => {
         setLoading(true);
 
-        toast.error("Product not added");
+        toast.error("product not updated");
       });
   };
   return (
@@ -64,80 +75,79 @@ const AddBook = () => {
       <div style={{ marginTop: "100px" }}></div>
       <ToastContainer />
       <form action="" className="form-control my-5">
-        <h4 className=" text-center">Add new product</h4>
-        <div class="form-row my-3 d-flex flex-wrap justify-content-center">
-          <div class="form-group col-md-5 mx-4 my-2">
+        <h4 className=" text-center">Update Product</h4>
+        <div className="form-row my-3 d-flex flex-wrap justify-content-center">
+          <div className="form-group col-md-5 mx-4 my-2">
             <input
               type="text"
               className="form-control "
-              name="bookname"
-              
-            autoComplete="off"
-              value={bookname}
+              name="productname"
+              value={productname}
               onChange={handleChange}
-              placeholder="Enter Product name"
+              placeholder="Enter product name"
+            />
+          </div>
+          <div className="form-group col-md-5 mx-4  my-2">
+            <input
+              type="text"
+              className="form-control "
+              name="catagory"
+              value={catagory}
+              onChange={handleChange}
+              placeholder="Enter catagory name"
             />
           </div>
 
-          <div class="form-group col-md-5 mx-4  my-2">
-            <input
-              type="file"
-              accept="image/"
-              id="image"
-              onChange={(e) => setImg((prev) => e.target.files[0])}
-              className=" form-control my-2 "
-            />
-          </div>
-          <div class="form-group col-md-5 mx-4  my-2">
+          <div className="form-group col-md-5 mx-4  my-2">
             <input
               type="text"
               className="form-control "
               name="ratings"
-              
-            autoComplete="off"
               value={ratings}
               onChange={handleChange}
               placeholder="Enter ratings"
             />
           </div>
 
-          <div class="form-group col-md-5 mx-4  my-2">
+          <div className="form-group col-md-5 mx-4  my-2">
             <input
               type="text"
               className="form-control "
               name="reviews"
-              
-            autoComplete="off"
               value={reviews}
               onChange={handleChange}
-              placeholder="Enter description"
+              placeholder="Enter reviews"
             />
           </div>
-          <div class="form-group col-md-5 mx-4  my-2">
-            <input
-              type="text"
-              className="form-control "
-              name="catagory"
-              
-            autoComplete="off"
-              value={catagory}
-              onChange={handleChange}
-              placeholder="Enter catagory"
-            />
-          </div>
-          <div class="form-group col-md-5 mx-4  my-2">
+          <div className="form-group col-md-5 mx-4  my-2">
             <input
               type="text"
               className="form-control "
               name="price"
-              
-            autoComplete="off"
               value={price}
               onChange={handleChange}
               placeholder="Enter price"
             />
           </div>
-          <div class="form-group  mx-4  my-2">
+
+          <div className="form-group col-md-5 mx-4 my-2">
+            <button
+              type="button"
+              className="btn btn-secondary mt-2"
+              onClick={() => document.getElementById("image").click()}
+            >
+              Change Image
+            </button>
+            <input
+              type="file"
+              accept="image/*"
+              id="image"
+              className=" d-none"
+              onChange={(e) => setImg(e.target.files[0])}
+            />
+          </div>
+
+          <div className="form-group  mx-4  my-2">
             <button className="btn btn-info" onClick={handleSubmit}>
               {loading ? "Please Wait..." : "Submit"}
             </button>
@@ -148,4 +158,4 @@ const AddBook = () => {
   );
 };
 
-export default AddBook;
+export default Updateproduct;

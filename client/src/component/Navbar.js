@@ -59,7 +59,7 @@ const Navbar = () => {
                   </li>
                 
                   
-                  <li><Link to='/addbook' className="dropdown-item">Add Product</Link></li>
+                  <li><Link to='/addproduct' className="dropdown-item">Add Product</Link></li>
                 </div>
               ) : (
                 <div>
