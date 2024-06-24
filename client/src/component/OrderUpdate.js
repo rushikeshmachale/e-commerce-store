@@ -18,32 +18,32 @@ const OrderUpdate = () => {
   const {customerid, productid, productname, img, catagory, price,status} = order
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   loadData();
-  // }, []);
-  // const loadData = async () => {
-  //   const res = await axios.get(
-  //     `${process.env.REACT_APP_BACKEND_API}/orders/find/order/${id}`
-  //   );
-  //   setOrder(res.data);
-  // };
-  // const handleChange = (e) => {
-  //   setOrder({ ...order, [e.target.name]: e.target.value });
-  // };
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   await axios
-  //     .put(`${process.env.REACT_APP_BACKEND_API}/orders/update/${id}`, order)
-  //     .then(() => {
-  //       navigate("/orders");
-  //     })
-  //     .catch(() => {
-  //       toast.error("cannot update order");
-  //     });
-  // };
+  useEffect(() => {
+    loadData();
+  }, []);
+  const loadData = async () => {
+    const res = await axios.get(
+      `${process.env.REACT_APP_BACKEND_API}/orders/find/order/${id}`
+    );
+    setOrder(res.data);
+  };
+  const handleChange = (e) => {
+    setOrder({ ...order, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await axios
+      .put(`${process.env.REACT_APP_BACKEND_API}/orders/update/${id}`, order)
+      .then(() => {
+        navigate("/orders");
+      })
+      .catch(() => {
+        toast.error("cannot update order");
+      });
+  };
 
   return (
-    {/**
+    
     
     <div className="container">
       <Navbar />
@@ -134,7 +134,7 @@ const OrderUpdate = () => {
         </div>
       </form>
     </div>
-       */}
+       
   );
 };
 

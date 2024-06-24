@@ -68,12 +68,12 @@ const Dashboard = () => {
     }));
   };
 
-  const searchData = (category) => {
-    setSelectedCategory(category);
-    if (category === "all") {
+  const searchData = (catagory) => {
+    setSelectedCategory(catagory);
+    if (catagory === "all") {
       setTemp(products);
     } else {
-      setTemp(products.filter(product => product.category.toLowerCase() === category));
+      setTemp(products.filter(product => product.catagory === catagory));
     }
   };
 
@@ -142,7 +142,7 @@ const Dashboard = () => {
                 >
                   <p className="text-success card-title">{x.productname}</p>
                   <p>{x.ratings}</p>
-                  <p>{x.category}</p>
+                  <p>{x.catagory}</p>
                   <p className="fs-6">₹{x.price}.0</p>
                   <div className="w-75">
                     <p className="text-wrap">

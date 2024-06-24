@@ -88,10 +88,10 @@ const View = () => {
                 <b>Catagory:</b> {productData.catagory}
                 </div>
                 <div className="text-center">
-                <b>Price:</b> ₹{productData.price}
+                <b>Price:</b> ₹{productData.price}.0/-
                 </div>
                 <div className="text-center">
-                <b>Reviews:</b>{" "}
+                <b>Description:</b>{" "}
                 <p className="text-wrap">{productData.reviews}</p>
                 </div>
                 </div>

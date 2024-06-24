@@ -35,11 +35,12 @@ const Orders = () => {
         <thead className="bg-primary text-white">
           <tr>
             <th></th>
-            {role === 'admin' ? <th>Update</th>:<th></th>}
+            <th>CustomerID</th>
             <th>Product</th>
             <th>Catagory</th>
             <th>Price</th>
             <th>Status</th>
+            {role === 'admin' ? <th>Update</th>:<th></th>}
             <th>Time</th>
           </tr>
         </thead>
@@ -50,22 +51,28 @@ const Orders = () => {
                 <td>
                   <img src={x.img} alt={x.productname} style={{maxHeight:"60px",maxWidth:"100px",minHeight:"60px",minWidth:"100px"}}  className="rounded-2" />
                 </td>
-                <td>
-                  {role === "admin" ? (
-                    <Link
-                      to={`/order/update/${x._id}`}
-                      className="text-decoration-none"
-                    >
-                      Edit
-                    </Link>
-                  ) : (
-                    <div></div>
-                  )}
-                </td>
+               
+                <td>{x.customerid}</td>
                 <td>{x.productname}</td>
                 <td>{x.catagory}</td>
                 <td><b>₹</b> {x.price}/-</td>
+
                 <td>{x.status}</td>
+                <td>
+                {role !== "admin" ?
+                  
+                 (
+                  <div></div>
+                ): (
+                  <Link
+                    to={`/order/update/${x._id}`}
+                    className="text-decoration-none"
+                  >
+                    Edit
+                  </Link>
+                ) 
+                }
+              </td>
                 <td>
                   <sup>
                     {new Date(x.createdAt).toLocaleString()}
