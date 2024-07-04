@@ -95,6 +95,7 @@ const OrderUpdate = () => {
           value={price}
           onChange={handleChange}
           placeholder="Enter price"
+          readOnly
           />
           </div>
           <div className="form-group col-md-5 mx-4  my-2">

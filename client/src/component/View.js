@@ -11,6 +11,9 @@ const View = () => {
   const customerid = localStorage.getItem("customerid");
   const [productData, setproductData] = useState({});
   const role = localStorage.getItem("role")
+
+  const [quantity,setQuantity]=useState(1)
+
   useEffect(() => {
     loadData();
   }, []);
@@ -32,8 +35,9 @@ const View = () => {
         productid: id,
         img: productData.img,
         productname: productData.productname,
-        price: productData.price,
+        price: quantity*productData.price,
         catagory: productData.catagory,
+        quantity:quantity
       });
       navigate("/cart");
     } catch (error) {
@@ -52,6 +56,7 @@ const View = () => {
         price: productData.price,
         catagory: productData.catagory,
         status: 'pending',
+        quantity:1
       });
       navigate("/orders");
     } catch (error) {
@@ -98,6 +103,10 @@ const View = () => {
                 </div>
                 {role==='user' &&(
                 <div className="text-center mt-3 mb-3">
+
+                <button onClick={()=>quantity>1 &&setQuantity(quantity-1)}>-</button>
+                {quantity}
+                <button onClick={()=>setQuantity(quantity+1)}>+</button>
                 <button onClick={handleSubmit} className="btn btn-dark mx-2">
                 🛒 Cart
                 </button>

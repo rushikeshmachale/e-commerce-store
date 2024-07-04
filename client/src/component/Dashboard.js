@@ -49,6 +49,8 @@ const Dashboard = () => {
     );
   };
 
+  
+
   const handleSort = () => {
     if (sort === "🔼") {
       const sorted = [...products].sort((a, b) => (b.price > a.price ? 1 : -1));
@@ -61,6 +63,8 @@ const Dashboard = () => {
     }
   };
 
+
+ 
   const toggleReadMore = (index) => {
     setIsExpanded((prevState) => ({
       ...prevState,
@@ -77,6 +81,7 @@ const Dashboard = () => {
     }
   };
 
+  
   const maxLength = 20;
 
   return (
@@ -120,7 +125,7 @@ const Dashboard = () => {
           return (
             <div
               key={index}
-              className="card col-md-3 col-lg-2 col-sm-4 col-xl-2 m-2 p-0"
+              className="card hover col-md-3 col-lg-2 col-sm-4 col-xl-2 m-2 p-0"
             >
               <div className="card-body">
                 <img

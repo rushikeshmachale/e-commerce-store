@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 export const sendMail = async (req, res) => {
-  try {
+
     const { email } = req.body;
     const otp = Math.round(Math.random() * 100000);
     const mailOptions = {
@@ -28,10 +28,9 @@ export const sendMail = async (req, res) => {
 
     await transporter.sendMail(mailOptions).then(() => {
       res.json({ otp });
-    });
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error." });
-  }
+    }).catch (e=>{
+    res.status(500).json({ e });
+  })
 };
 
 export const addCustomer = async (req, res) => {
@@ -61,7 +60,7 @@ export const addCustomer = async (req, res) => {
     }
 
   } catch (error) {
-    console.log(error);
+    return res.status(402).json(error);
   }
 };
 export const getCustomers = async (req, res) => {

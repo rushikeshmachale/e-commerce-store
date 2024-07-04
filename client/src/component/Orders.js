@@ -38,6 +38,7 @@ const Orders = () => {
             <th>CustomerID</th>
             <th>Product</th>
             <th>Catagory</th>
+            <th>Quantity</th>
             <th>Price</th>
             <th>Status</th>
             {role === 'admin' ? <th>Update</th>:<th></th>}
@@ -55,6 +56,7 @@ const Orders = () => {
                 <td>{x.customerid}</td>
                 <td>{x.productname}</td>
                 <td>{x.catagory}</td>
+                <td>{x.quantity}</td>
                 <td><b>₹</b> {x.price}/-</td>
 
                 <td>{x.status}</td>

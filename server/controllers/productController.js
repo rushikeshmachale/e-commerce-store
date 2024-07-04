@@ -1,32 +1,31 @@
-import products from "../models/product.js";
+import Product from "../models/product.js";
 
 export const addproduct = async (req, res) => {
-  try {
+
     const { productname, img, price, ratings,catagory, reviews } = req.body;
-    const newproduct = new products({
+    const newproduct = await new Product({
       productname,
       img,
       price,
       ratings,
       catagory,
-      reviews,
+      reviews, 
     });
 
-    await newproduct.save();
-
-    
-    return res.status(200).json({ message: "product saved successfully" });
-  } catch (error) {
-    // console.error(error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
+    await newproduct.save()
+    .then(() => {
+      return res.status(200).json("newproduct");
+    })
+    .catch((e) => {
+      return res.status(400).json(e);
+    });
 };
 
 export const addproducts = async (req, res) => {
   const productlist = req.body;
 
   productlist.forEach(async (e) => {
-    const product = new products({
+    const product = new Product({
       productname: e.productname,
       img: e.img,
       price: e.price,
@@ -46,7 +45,7 @@ export const addproducts = async (req, res) => {
 
 export const getAllproducts = async (req, res) => {
   try {
-    const product = await products.find();
+    const product = await Product.find();
     return res.status(200).json(product);
   } catch (error) {
     return res.status(200).json(error);
@@ -55,7 +54,7 @@ export const getAllproducts = async (req, res) => {
 export const getproductByID = async (req, res) => {
   const { id } = req.params;
 
-  const product = await products.findById(id);
+  const product = await Product.findById(id);
   return res.status(200).json(product);
 };
 
@@ -63,7 +62,7 @@ export const deleteproductByid = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const result = await products.findByIdAndDelete(id);
+    const result = await Product.findByIdAndDelete(id);
     if (result) {
       return res.status(201).json({ message: "product deleted successfully" });
     } else {
@@ -82,7 +81,7 @@ export const updateproduct = async (req, res) => {
 
     // const product = await products.findById(id);
     if (id) {
-      await products.findByIdAndUpdate(id, {
+      await Product.findByIdAndUpdate(id, {
         productname,
         img,
         price,

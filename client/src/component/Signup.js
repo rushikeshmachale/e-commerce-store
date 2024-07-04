@@ -48,6 +48,7 @@ const Signup = () => {
       setOtpStyle({ display: "flex" });
     }
 
+    
     const val = await axios.post(
       `${process.env.REACT_APP_BACKEND_API}/customers/send`,
       {
@@ -72,6 +73,9 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (name === "" || email === "" || password === "" || otpVal === "") {
+      toast.error("Please provide all fields");
+    }
+    if (name === "" || email === "" || password === "" ) {
       toast.error("Please provide all fields");
     }
     setLoading(true);
@@ -145,6 +149,9 @@ const Signup = () => {
             placeholder="Enter your email"
           />
 
+
+         
+
           <button onClick={handleMail} className="btn btn-dark h-100 my-2 mx-1">
             Verify
           </button>
@@ -160,9 +167,10 @@ const Signup = () => {
             placeholder="Enter your email"
           />
 
-          <button onClick={checkOtp} className="btn h-100 my-2 mx-1">
-            Validate
-          </button>
+        <button onClick={checkOtp} className="btn h-100 my-2 mx-1">
+        Validate
+        </button>
+       
         </div>
 
         <input

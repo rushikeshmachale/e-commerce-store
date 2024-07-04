@@ -65,7 +65,6 @@ const Updateproduct = () => {
       })
       .catch(() => {
         setLoading(true);
-
         toast.error("product not updated");
       });
   };

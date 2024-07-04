@@ -3,7 +3,7 @@ import Cart from "../models/cart.js";
 
 export const addToCart = async (req, res) => {
   //   const { id } = req.params;
-  const { customerid, productid, img, productname, catagory, price } = req.body;
+const { customerid, productid, img, productname,quantity, catagory, price } = req.body;
 
   const cart = await new Cart({
     customerid,
@@ -12,6 +12,7 @@ export const addToCart = async (req, res) => {
     img,
     catagory,
     price,
+    quantity
   });
 
   await cart
@@ -66,5 +67,31 @@ export const deleteCartProduct = async(req,res)=>{
     return res.status(200).json('product deleted')
   }else{
     return res.status(400).json('product not found')
+  }
+}
+
+export const updateCart = async(req,res)=>{
+  const {id} = req.params;
+
+  const { customerid, productid, img, productname,quantity, catagory, price } = req.body;
+
+
+  if(id){
+    await Cart.findByIdAndUpdate(id,{customerid, productid, img, productname,quantity, catagory, price})
+    return res.status(201).json("cart updated");
+  } else {
+    return res.status(401).json("cart not found");
+  }
+}
+
+export const getCastbyProductid=async(req,res)=>{
+
+  const id=req.params
+
+  if(id){
+    const cart=await Cart.findById({_id:id})
+    return res.status(201).json(cart);
+  } else {
+    return res.status(401).json("cart not found");
   }
 }

@@ -44,8 +44,12 @@ const AddProduct = () => {
     const imgUrl = await uploadImage("image");
     await axios
       .post(`${process.env.REACT_APP_BACKEND_API}/products/save`, {
-        ...productData,
+        productname:productname,
         img: imgUrl,
+        price:price,
+        ratings:ratings,
+        reviews:reviews,
+        catagory:catagory
       })
       .then(() => {
         setImg(null);
@@ -65,8 +69,8 @@ const AddProduct = () => {
       <ToastContainer />
       <form action="" className="form-control my-5">
         <h4 className=" text-center">Add new product</h4>
-        <div class="form-row my-3 d-flex flex-wrap justify-content-center">
-          <div class="form-group col-md-5 mx-4 my-2">
+        <div className="form-row my-3 d-flex flex-wrap justify-content-center">
+          <div className="form-group col-md-5 mx-4 my-2">
             <input
               type="text"
               className="form-control "
@@ -79,7 +83,7 @@ const AddProduct = () => {
             />
           </div>
 
-          <div class="form-group col-md-5 mx-4  my-2">
+          <div className="form-group col-md-5 mx-4  my-2">
             <input
               type="file"
               accept="image/"
@@ -88,7 +92,7 @@ const AddProduct = () => {
               className=" form-control my-2 "
             />
           </div>
-          <div class="form-group col-md-5 mx-4  my-2">
+          <div className="form-group col-md-5 mx-4  my-2">
             <input
               type="text"
               className="form-control "
@@ -101,7 +105,7 @@ const AddProduct = () => {
             />
           </div>
 
-          <div class="form-group col-md-5 mx-4  my-2">
+          <div className="form-group col-md-5 mx-4  my-2">
             <input
               type="text"
               className="form-control "
@@ -113,7 +117,7 @@ const AddProduct = () => {
               placeholder="Enter description"
             />
           </div>
-          <div class="form-group col-md-5 mx-4  my-2">
+          <div className="form-group col-md-5 mx-4  my-2">
             <input
               type="text"
               className="form-control "
@@ -125,7 +129,7 @@ const AddProduct = () => {
               placeholder="Enter catagory"
             />
           </div>
-          <div class="form-group col-md-5 mx-4  my-2">
+          <div className="form-group col-md-5 mx-4  my-2">
             <input
               type="text"
               className="form-control "
@@ -137,7 +141,7 @@ const AddProduct = () => {
               placeholder="Enter price"
             />
           </div>
-          <div class="form-group  mx-4  my-2">
+          <div className="form-group  mx-4  my-2">
             <button className="btn btn-info" onClick={handleSubmit}>
               {loading ? "Please Wait..." : "Submit"}
             </button>
